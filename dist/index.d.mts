@@ -28,6 +28,10 @@ declare function formatNumber(value: number, decimals?: number, decimalSeparator
 //#region src/services/PromiseService.d.ts
 declare function promiseAll<const T extends Record<string, Promise<unknown>>>(promises: T): Promise<{ [K in keyof T]: Awaited<T[K]>; }>;
 //#endregion
+//#region src/services/RegExpService.d.ts
+type MatchGroups<Group extends string> = Record<Group, string | undefined>;
+declare function matchGroups<GroupName extends string>(expression: RegExp, value: string): MatchGroups<GroupName> | undefined;
+//#endregion
 //#region src/services/RequestService.d.ts
 type FetchUrl = Exclude<Parameters<typeof fetch>[0], Request>;
 type URLSearchParamsQuery = ConstructorParameters<typeof URLSearchParams>[0];
@@ -55,4 +59,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, extractSlugId, formatNumber, getExtension, getTarget, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };
+export { type Arrayable, chunk, clamp, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };

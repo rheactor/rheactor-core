@@ -1,9 +1,9 @@
 import { parseAs } from "#/services/JsonService";
 
-export type FetchUrl = Exclude<Parameters<typeof fetch>[0], Request>;
+type FetchUrl = Exclude<Parameters<typeof fetch>[0], Request>;
 
 // eslint-disable-next-line unicorn/name-replacements
-export type URLSearchParamsQuery = ConstructorParameters<typeof URLSearchParams>[0];
+type URLSearchParamsQuery = ConstructorParameters<typeof URLSearchParams>[0];
 
 interface RequestOptions {
   method?: "GET" | "POST";

@@ -14,6 +14,8 @@ export { clamp, formatNumber } from "#/services/NumberService";
 
 export { promiseAll } from "#/services/PromiseService";
 
+export { matchGroups } from "#/services/RegExpService";
+
 export { request, requestText } from "#/services/RequestService";
 
 export { twMerge } from "#/services/TailwindMergeService";
