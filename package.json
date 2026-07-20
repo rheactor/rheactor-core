@@ -18,12 +18,16 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./next": {
-      "types": "./dist/next.d.mts",
-      "default": "./dist/next.mjs"
+      "types": "./dist/index.next.d.mts",
+      "default": "./dist/index.next.mjs"
+    },
+    "./node": {
+      "types": "./dist/index.node.d.mts",
+      "default": "./dist/index.node.mjs"
     }
   },
   "scripts": {

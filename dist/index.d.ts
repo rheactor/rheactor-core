@@ -25,9 +25,6 @@ declare function getTarget(src: string | undefined, target: Target | (string & {
 declare function clamp(value: number, min: number, max: number): number;
 declare function formatNumber(value: number, decimals?: number, decimalSeparator?: string, thousandSeparator?: string): string;
 //#endregion
-//#region src/services/PackageService.d.ts
-declare function findPackagePath(path?: string): Promise<string | undefined>;
-//#endregion
 //#region src/services/PromiseService.d.ts
 declare function promiseAll<const T extends Record<string, Promise<unknown>>>(promises: T): Promise<{ [K in keyof T]: Awaited<T[K]>; }>;
 //#endregion
@@ -62,4 +59,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, extractSlugId, findPackagePath, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };
+export { type Arrayable, chunk, clamp, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };

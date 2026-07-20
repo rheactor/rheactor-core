@@ -1,0 +1,1 @@
+import{access as e,constants as t}from"node:fs/promises";import{dirname as n,join as r}from"node:path";async function i(i=process.cwd()){let a=i;do{try{return await e(r(a,`package.json`),t.F_OK),a}catch{}let i=n(a);if(i===a)return;a=i}while(!0)}export{i as findPackagePath};
