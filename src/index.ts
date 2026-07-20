@@ -12,6 +12,8 @@ export { getTarget } from "#/services/LinkService";
 
 export { clamp, formatNumber } from "#/services/NumberService";
 
+export { findPackagePath } from "#/services/PackageService";
+
 export { promiseAll } from "#/services/PromiseService";
 
 export { matchGroups } from "#/services/RegExpService";
