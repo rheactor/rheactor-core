@@ -13,7 +13,7 @@ export function slugifyId(id: number, word: string) {
 }
 
 export function extractSlugId(id: string) {
-  const [extractedId] = id.split("-");
+  const [extractedId] = id.split("-", 1);
   const castId = Number(extractedId);
 
   return Number.isSafeInteger(castId) && String(castId) === extractedId ? castId : undefined;
