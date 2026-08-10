@@ -31,16 +31,16 @@
     }
   },
   "scripts": {
-    "build": "bun run lint && tsdown",
+    "build": "bun run lint && bun run test && tsdown",
     "lint": "bun run typecheck && bun run oxlint && bun run oxfmt",
     "lint:fix": "bun run typecheck && bun run oxlint:fix && bun run oxfmt:fix",
-    "typecheck": "tsc --noEmit",
     "oxfmt": "oxfmt --check ./src ./tests",
     "oxfmt:fix": "oxfmt --write ./src ./tests",
     "oxlint": "oxlint ./src ./tests",
     "oxlint:fix": "oxlint --fix ./src ./tests",
     "test": "vitest --run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "tailwind-merge": "^3.6.0"
@@ -48,8 +48,8 @@
   "devDependencies": {
     "@rheactor/rheactor-oxc-config": "github:rheactor/rheactor-oxc-config",
     "next": "^16.3.0",
-    "oxfmt": "^0.62.0",
-    "oxlint": "^1.77.0",
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
     "tsdown": "^0.22.14",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"

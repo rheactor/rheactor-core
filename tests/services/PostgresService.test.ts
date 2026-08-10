@@ -1,19 +1,30 @@
 import { describe, expect, it } from "vitest";
 
-import { escapeIdentifier, escapeLiteral } from "#/services/PostgresService";
+import { escapeIdentifier, escapeIdentifierSmart, escapeLiteral } from "#/services/PostgresService";
 
 describe("PostgresService", () => {
-  type EscapeIdentifierTest = [input: string, output: string];
+  interface EscapeIdentifierTest {
+    input: string;
+    output: string;
+    outputSmart: string;
+  }
 
   const escapeIdentifierTests: EscapeIdentifierTest[] = [
-    ["", '""'],
-    ['"', '""""'],
-    ['"a"', '"""a"""'],
-    ["'", '"\'"'],
+    { input: "", output: '""', outputSmart: '""' },
+    { input: '"', output: '""""', outputSmart: '""""' },
+    { input: "'", output: '"\'"', outputSmart: '"\'"' },
+    { input: "a", output: '"a"', outputSmart: "a" },
+    { input: "users", output: '"users"', outputSmart: "users" },
+    { input: "all", output: '"all"', outputSmart: '"all"' },
+    { input: "CamelCase", output: '"CamelCase"', outputSmart: '"CamelCase"' },
   ];
 
-  it.each(escapeIdentifierTests)("escapeIdentifier(%j)", (input, output) => {
+  it.each(escapeIdentifierTests)("escapeIdentifier($input)", ({ input, output }) => {
     expect(escapeIdentifier(input)).toBe(output);
+  });
+
+  it.each(escapeIdentifierTests)("escapeIdentifierSmart($input)", ({ input, outputSmart }) => {
+    expect(escapeIdentifierSmart(input)).toBe(outputSmart);
   });
 
   type EscapeLiteralTest = [input: string | undefined, output: string];

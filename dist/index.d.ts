@@ -27,6 +27,7 @@ declare function formatNumber(value: number, decimals?: number, decimalSeparator
 //#endregion
 //#region src/services/PostgresService.d.ts
 declare function escapeIdentifier(identifier: string): string;
+declare function escapeIdentifierSmart(identifier: string): string;
 declare function escapeLiteral(value: unknown): string;
 //#endregion
 //#region src/services/PromiseService.d.ts
@@ -63,4 +64,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, escapeIdentifier, escapeLiteral, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };
+export { type Arrayable, chunk, clamp, escapeIdentifier, escapeIdentifierSmart, escapeLiteral, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };

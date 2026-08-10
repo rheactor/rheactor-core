@@ -12,7 +12,7 @@ export { getTarget } from "#/services/LinkService";
 
 export { clamp, formatNumber } from "#/services/NumberService";
 
-export { escapeIdentifier, escapeLiteral } from "#/services/PostgresService";
+export { escapeIdentifier, escapeIdentifierSmart, escapeLiteral } from "#/services/PostgresService";
 
 export { promiseAll } from "#/services/PromiseService";
 
