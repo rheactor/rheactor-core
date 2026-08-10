@@ -3,9 +3,10 @@ import { describe, expect, it } from "vitest";
 import { matchGroups } from "#/services/RegExpService";
 
 describe("services/RegExpService", () => {
-  const expression = /^(?<year>\d{4})(?:-(?<month>\d{2}))?$/;
+  const expression = /^(?<year>\d{4})(?:-(?<month>\d{2}))?$/v;
 
   it("returns groups", () => {
+    // oxlint-disable-next-line vitest/prefer-strict-equal
     expect(matchGroups<"month" | "year">(expression, "2024-01")).toEqual({
       year: "2024",
       month: "01",
@@ -17,6 +18,7 @@ describe("services/RegExpService", () => {
   });
 
   it("returns undefined for missing groups", () => {
+    // oxlint-disable-next-line vitest/prefer-strict-equal
     expect(matchGroups<"month" | "year">(expression, "2024")).toEqual({
       year: "2024",
       month: undefined,

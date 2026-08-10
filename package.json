@@ -31,14 +31,14 @@
     }
   },
   "scripts": {
-    "build": "tsdown",
-    "lint": "npm run typecheck && npm run eslint && npm run oxfmt",
-    "lint:fix": "npm run typecheck && npm run eslint:fix && npm run oxfmt:fix",
+    "build": "bun run lint && tsdown",
+    "lint": "bun run typecheck && bun run oxlint && bun run oxfmt",
+    "lint:fix": "bun run typecheck && bun run oxlint:fix && bun run oxfmt:fix",
     "typecheck": "tsc --noEmit",
     "oxfmt": "oxfmt --check ./src ./tests",
     "oxfmt:fix": "oxfmt --write ./src ./tests",
-    "eslint": "eslint ./src ./tests",
-    "eslint:fix": "eslint --fix ./src ./tests",
+    "oxlint": "oxlint ./src ./tests",
+    "oxlint:fix": "oxlint --fix ./src ./tests",
     "test": "vitest --run",
     "test:watch": "vitest"
   },
@@ -46,16 +46,16 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@rheactor/eslint-config-rheactor": "github:rheactor/eslint-config-rheactor",
-    "eslint": "^10.8.0",
-    "next": "^16.2.11",
-    "oxfmt": "^0.60.0",
+    "@rheactor/rheactor-oxc-config": "github:rheactor/rheactor-oxc-config",
+    "next": "^16.3.0",
+    "oxfmt": "^0.62.0",
+    "oxlint": "^1.77.0",
     "tsdown": "^0.22.14",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
   "peerDependencies": {
-    "next": "^16.2.11"
+    "next": "^16.3.0"
   },
   "peerDependenciesMeta": {
     "next": {

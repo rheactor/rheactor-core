@@ -21,5 +21,8 @@ export async function findPackagePath(path = process.cwd()) {
     }
 
     currentPath = previousPath;
-  } while (true);
+  } while (
+    // oxlint-disable-next-line no-constant-condition
+    true
+  );
 }

@@ -8,12 +8,12 @@ export function formatNumber(
   decimalSeparator = ".",
   thousandSeparator = "",
 ) {
-  const [valueNumber, valueDecimal = ""] = value.toFixed(decimals).split(".") as [string, string];
+  const [valueNumber, valueDecimal] = value.toFixed(decimals).split(".") as [string, string];
 
   const valueFormatted =
     thousandSeparator === ""
       ? valueNumber
-      : valueNumber.replaceAll(/\B(?=(?:\d{3})+(?!\d))/g, thousandSeparator);
+      : valueNumber.replaceAll(/\B(?=(?:\d{3})+(?!\d))/gv, thousandSeparator);
 
   return decimals === 0 ? valueFormatted : valueFormatted + decimalSeparator + valueDecimal;
 }

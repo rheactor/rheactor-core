@@ -1,6 +1,5 @@
 import { getImageProps } from "next/image";
 
-// eslint-disable-next-line unicorn/name-replacements
 export function getNextImageUrl(src: string, width: number, quality = 75) {
   return getImageProps({
     src,
