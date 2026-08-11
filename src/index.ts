@@ -22,4 +22,6 @@ export { request, requestText } from "#/services/RequestService";
 
 export { twMerge } from "#/services/TailwindMergeService";
 
+export { unsafeCast } from "#/services/TypescriptService";
+
 export { removeDiacritics, slugify, slugifyId, extractSlugId } from "#/services/WordService";

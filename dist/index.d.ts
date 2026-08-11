@@ -58,10 +58,13 @@ declare function requestText(options: RequestOptions): Promise<RequestResponse<s
 //#region src/services/TailwindMergeService.d.ts
 declare const twMerge: (...classLists: import("tailwind-merge").ClassNameValue[]) => string;
 //#endregion
+//#region src/services/TypescriptService.d.ts
+declare function unsafeCast<T>(value: unknown): T;
+//#endregion
 //#region src/services/WordService.d.ts
 declare function removeDiacritics(word: string): string;
 declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, escapeIdentifier, escapeIdentifierSmart, escapeLiteral, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique };
+export { type Arrayable, chunk, clamp, escapeIdentifier, escapeIdentifierSmart, escapeLiteral, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
