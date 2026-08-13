@@ -6,9 +6,13 @@ export function escapeIdentifier(identifier: string) {
   return `"${identifier.replaceAll('"', '""')}"`;
 }
 
-export function escapeIdentifierSmart(identifier: string) {
-  if (REGEXP_SAFE_IDENTIFIER.test(identifier) && !PG_KEYWORDS.has(identifier)) {
-    return identifier;
+export function escapeIdentifierSmart(identifier: string, bypassKeywords = false) {
+  if (REGEXP_SAFE_IDENTIFIER.test(identifier)) {
+    const bypassEscaping = bypassKeywords || !PG_KEYWORDS.has(identifier);
+
+    if (bypassEscaping) {
+      return identifier;
+    }
   }
 
   return escapeIdentifier(identifier);

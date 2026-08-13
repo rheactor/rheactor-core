@@ -7,6 +7,7 @@ describe("PostgresService", () => {
     input: string;
     output: string;
     outputSmart: string;
+    bypassKeywords?: boolean;
   }
 
   const escapeIdentifierTests: EscapeIdentifierTest[] = [
@@ -15,17 +16,23 @@ describe("PostgresService", () => {
     { input: "'", output: '"\'"', outputSmart: '"\'"' },
     { input: "a", output: '"a"', outputSmart: "a" },
     { input: "users", output: '"users"', outputSmart: "users" },
+    { input: "users", output: '"users"', outputSmart: "users", bypassKeywords: true },
     { input: "all", output: '"all"', outputSmart: '"all"' },
+    { input: "all", output: '"all"', outputSmart: "all", bypassKeywords: true },
     { input: "CamelCase", output: '"CamelCase"', outputSmart: '"CamelCase"' },
+    { input: "CamelCase", output: '"CamelCase"', outputSmart: '"CamelCase"', bypassKeywords: true },
   ];
 
   it.each(escapeIdentifierTests)("escapeIdentifier($input)", ({ input, output }) => {
     expect(escapeIdentifier(input)).toBe(output);
   });
 
-  it.each(escapeIdentifierTests)("escapeIdentifierSmart($input)", ({ input, outputSmart }) => {
-    expect(escapeIdentifierSmart(input)).toBe(outputSmart);
-  });
+  it.each(escapeIdentifierTests)(
+    "escapeIdentifierSmart($input, $escapeKeywords)",
+    ({ input, outputSmart, bypassKeywords }) => {
+      expect(escapeIdentifierSmart(input, bypassKeywords)).toBe(outputSmart);
+    },
+  );
 
   type EscapeLiteralTest = [input: string | undefined, output: string];
 

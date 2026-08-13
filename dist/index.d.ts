@@ -27,7 +27,7 @@ declare function formatNumber(value: number, decimals?: number, decimalSeparator
 //#endregion
 //#region src/services/PostgresService.d.ts
 declare function escapeIdentifier(identifier: string): string;
-declare function escapeIdentifierSmart(identifier: string): string;
+declare function escapeIdentifierSmart(identifier: string, bypassKeywords?: boolean): string;
 declare function escapeLiteral(value: unknown): string;
 //#endregion
 //#region src/services/PromiseService.d.ts
