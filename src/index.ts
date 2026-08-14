@@ -4,7 +4,7 @@ export { chunk, firstOf, pluck, range, shuffle, toArray, unique } from "#/servic
 
 export { getExtension } from "#/services/FileService";
 
-export { noop } from "#/services/FunctionService";
+export { noop, singleton } from "#/services/FunctionService";
 
 export { parseAs } from "#/services/JsonService";
 

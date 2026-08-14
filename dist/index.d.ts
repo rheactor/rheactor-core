@@ -1,6 +1,8 @@
 //#region src/services/ArrayService.d.ts
 type Arrayable<T> = T | T[];
 declare function chunk<T>(array: T[], size: number): T[][];
+declare function firstOf<T>(array: T[]): T | undefined;
+declare function firstOf<T, TDefault>(array: T[], defaultValue: TDefault): T | TDefault;
 declare function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]>;
 declare function range(start: number, end: number, step?: number): number[];
 declare function shuffle<T>(array: T[]): T[];
@@ -12,6 +14,7 @@ declare function getExtension(path: string): string | undefined;
 //#endregion
 //#region src/services/FunctionService.d.ts
 declare function noop(): void;
+declare function singleton<T>(factory: () => T): () => T;
 //#endregion
 //#region src/services/JsonService.d.ts
 declare function parseAs<T>(data: string | null | undefined): T | undefined;
@@ -67,4 +70,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, escapeIdentifier, escapeIdentifierSmart, escapeLiteral, extractSlugId, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
+export { type Arrayable, chunk, clamp, escapeIdentifier, escapeIdentifierSmart, escapeLiteral, extractSlugId, firstOf, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };

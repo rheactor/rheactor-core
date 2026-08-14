@@ -162,7 +162,7 @@ Use for file type detection from file names or URLs.
 getExtension("archive.tar.gz"); // "gz"
 ```
 
-## Function helpers
+## Function functions
 
 Small utilities for working with functions.
 
@@ -178,6 +178,24 @@ Use as a placeholder for optional callbacks, event handlers, or default props.
 
 ```ts
 const onClick: () => void = isEnabled ? handleClick : noop;
+```
+
+### singleton
+
+```ts
+singleton<T>(factory: () => T): () => T
+```
+
+Creates a lazily-initialized single instance: the `factory` runs only on the first call and its
+result is stored and reused by every subsequent call.
+
+Use for expensive or stateful shared objects (database clients, stores, caches) without a DI
+container.
+
+```ts
+const getDb = singleton(() => new DatabaseClient());
+
+getDb() === getDb(); // true
 ```
 
 ## JSON functions
