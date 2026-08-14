@@ -294,6 +294,26 @@ Use for display formatting with locale-specific separators.
 formatNumber(1234567.891, 2, ",", "."); // "1.234.567,89"
 ```
 
+## Object functions
+
+Projecting subsets of fields from objects.
+
+### pick
+
+```ts
+pick<T extends object, K extends keyof T>(object: T, keys: readonly K[]): Pick<T, K>
+```
+
+Returns a new object containing only the given `keys`, with values copied from `object`. The source
+object is not mutated, and keys not present in `object` are still included with value `undefined`.
+
+Use to shape API responses or props without leaking internal fields.
+
+```ts
+pick({ id: 1, name: "Ada", passwordHash: "..." }, ["id", "name"]);
+// { id: 1, name: "Ada" }
+```
+
 ## Postgres functions
 
 Escaping values and identifiers for PostgreSQL queries.
