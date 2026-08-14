@@ -1,8 +1,22 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-import { promiseAll } from "#/services/PromiseService";
+import { promiseAll, sleep } from "#/services/PromiseService";
 
 describe("services/PromiseService", () => {
+  it("sleep resolves after the given milliseconds", async () => {
+    expect.assertions(1);
+
+    vi.useFakeTimers();
+
+    const promise = sleep(1500);
+
+    vi.advanceTimersByTime(1500);
+
+    await expect(promise).resolves.toBeUndefined();
+
+    vi.useRealTimers();
+  });
+
   it("promiseAll", async () => {
     expect.assertions(1);
 

@@ -1,3 +1,11 @@
+export async function sleep(ms: number) {
+  const { promise, resolve } = Promise.withResolvers();
+
+  setTimeout(resolve, ms);
+
+  await promise;
+}
+
 export async function promiseAll<const T extends Record<string, Promise<unknown>>>(promises: T) {
   const keys = Object.keys(promises);
   const results = await Promise.all(Object.values(promises));

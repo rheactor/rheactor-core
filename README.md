@@ -365,7 +365,7 @@ escapeLiteral("O'Reilly"); // "'O''Reilly'"
 
 ## Promise functions
 
-Awaiting many promises with named results.
+Awaiting promises and pausing execution.
 
 ### promiseAll
 
@@ -384,6 +384,20 @@ const { user, posts } = await promiseAll({
   posts: fetchPosts(),
 });
 // user: User; posts: Post[]
+```
+
+### sleep
+
+```ts
+sleep(ms: number): Promise<void>
+```
+
+Resolves after `ms` milliseconds via `setTimeout`.
+
+Use as the base for rate limiting, polling loops, or retry backoff.
+
+```ts
+await sleep(1000); // pauses execution for 1 second
 ```
 
 ## RegExp functions
