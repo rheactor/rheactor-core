@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { chunk, pluck, range, shuffle, toArray, unique } from "#/services/ArrayService";
+import { chunk, firstOf, pluck, range, shuffle, toArray, unique } from "#/services/ArrayService";
 
 describe("services/ArrayService", () => {
   type RangeTest = [from: number, to: number, step: number | undefined, output: number[]];
@@ -60,6 +60,23 @@ describe("services/ArrayService", () => {
 
   it.each(chunkTests)("chunk(%j, %j) = %j", (input, size, output) => {
     expect(chunk(input, size)).toStrictEqual(output);
+  });
+
+  type FirstOfTest = [input: unknown[], defaultValue: unknown, output: unknown];
+
+  const firstOfTests: FirstOfTest[] = [
+    [[1, 2, 3], undefined, 1],
+    [["a", "b"], undefined, "a"],
+    [[], undefined, undefined],
+    [[], 0, 0],
+    [[], null, null],
+    [[1, 2], 0, 1],
+    [[null, 2], 3, 3],
+    [[undefined, 2], 3, 3],
+  ];
+
+  it.each(firstOfTests)("firstOf(%j, %j) = %j", (input, defaultValue, output) => {
+    expect(firstOf(input, defaultValue)).toStrictEqual(output);
   });
 
   type PluckTest = [

@@ -6,6 +6,17 @@ export function chunk<T>(array: T[], size: number): T[][] {
   );
 }
 
+export function firstOf<T>(array: T[]): T | undefined;
+
+export function firstOf<T, TDefault>(array: T[], defaultValue: TDefault): T | TDefault;
+
+export function firstOf<T, TDefault>(
+  array: T[],
+  defaultValue?: TDefault,
+): T | TDefault | undefined {
+  return array.at(0) ?? defaultValue;
+}
+
 export function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]> {
   return array.map((item) => item[key]);
 }

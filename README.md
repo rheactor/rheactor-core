@@ -31,7 +31,7 @@ import { chunk, parseAs, slugify } from "@rheactor/rheactor-core";
 
 ## Array functions
 
-Creating, splitting, and transforming arrays.
+Creating, splitting, transforming, and reading arrays.
 
 ### chunk
 
@@ -45,6 +45,27 @@ Use for grid layouts, pagination, or batch processing.
 
 ```ts
 chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+```
+
+### firstOf
+
+```ts
+firstOf<T>(array: T[]): T | undefined
+
+firstOf<T, TDefault>(array: T[], defaultValue: TDefault): T | TDefault
+```
+
+Returns the first element of the array, or the optional `defaultValue` when the array is empty or
+its first element is nullish (nullish coalescing). Without a default, `undefined` is returned.
+
+Use when `undefined` is the desired sentinel for an empty array, or to provide a fallback element.
+For a `null` sentinel, pass `null` as the default explicitly.
+
+```ts
+firstOf([1, 2, 3]); // 1
+firstOf([]); // undefined
+firstOf([], 0); // 0
+firstOf([1, 2], 0); // 1
 ```
 
 ### pluck
