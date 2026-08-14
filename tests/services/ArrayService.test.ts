@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
 
-import { chunk, firstOf, pluck, range, shuffle, toArray, unique } from "#/services/ArrayService";
+import {
+  chunk,
+  compact,
+  firstOf,
+  pluck,
+  range,
+  shuffle,
+  toArray,
+  unique,
+} from "#/services/ArrayService";
 
 describe("services/ArrayService", () => {
   type RangeTest = [from: number, to: number, step: number | undefined, output: number[]];
@@ -60,6 +69,25 @@ describe("services/ArrayService", () => {
 
   it.each(chunkTests)("chunk(%j, %j) = %j", (input, size, output) => {
     expect(chunk(input, size)).toStrictEqual(output);
+  });
+
+  type CompactTest = [input: Array<number | null | undefined>, output: number[]];
+
+  const compactTests: CompactTest[] = [
+    [
+      [1, null, 2, undefined, 3],
+      [1, 2, 3],
+    ],
+    [[null, undefined], []],
+    [
+      [1, 2, 3],
+      [1, 2, 3],
+    ],
+    [[] as Array<number | null | undefined>, []],
+  ];
+
+  it.each(compactTests)("compact(%j) = %j", (input, output) => {
+    expect(compact(input)).toStrictEqual(output);
   });
 
   type FirstOfTest = [input: unknown[], defaultValue: unknown, output: unknown];

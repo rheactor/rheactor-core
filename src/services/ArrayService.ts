@@ -6,6 +6,10 @@ export function chunk<T>(array: T[], size: number): T[][] {
   );
 }
 
+export function compact<T>(array: Array<T | null | undefined>): T[] {
+  return array.filter((item) => item !== null && item !== undefined);
+}
+
 export function firstOf<T>(array: T[]): T | undefined;
 
 export function firstOf<T, TDefault>(array: T[], defaultValue: TDefault): T | TDefault;

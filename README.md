@@ -47,6 +47,21 @@ Use for grid layouts, pagination, or batch processing.
 chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
 ```
 
+### compact
+
+```ts
+compact<T>(array: Array<T | null | undefined>): T[]
+```
+
+Removes `null` and `undefined` items, returning a new array narrowed to `T`.
+
+Use instead of a manual `filter((item): item is T => ...)` type guard when cleaning nullable values
+from optional inputs, API results, or form values.
+
+```ts
+compact([1, null, 2, undefined, 3]); // [1, 2, 3]
+```
+
 ### firstOf
 
 ```ts
