@@ -4,7 +4,7 @@ type FetchUrl = Exclude<Parameters<typeof fetch>[0], Request>;
 
 type URLSearchParamsQuery = ConstructorParameters<typeof URLSearchParams>[0];
 
-interface RequestOptions {
+export interface RequestOptions {
   method?: "GET" | "POST";
   url: FetchUrl;
   query?: URLSearchParamsQuery;
@@ -14,7 +14,7 @@ interface RequestOptions {
 
 type ResponseProcessor<T> = (response: Response) => Promise<T | undefined>;
 
-interface RequestResponse<T> {
+export interface RequestResponse<T> {
   success: boolean;
   status: number;
   data?: T;

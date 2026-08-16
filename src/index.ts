@@ -27,6 +27,7 @@ export { promiseAll, sleep } from "#/services/PromiseService";
 
 export { matchGroups } from "#/services/RegExpService";
 
+export type { RequestOptions, RequestResponse } from "#/services/RequestService";
 export { request, requestText } from "#/services/RequestService";
 
 export { twMerge } from "#/services/TailwindMergeService";

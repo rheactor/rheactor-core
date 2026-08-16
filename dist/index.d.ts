@@ -70,4 +70,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
+export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
