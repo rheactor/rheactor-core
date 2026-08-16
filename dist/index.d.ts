@@ -32,11 +32,6 @@ declare function formatNumber(value: number, decimals?: number, decimalSeparator
 //#region src/services/ObjectService.d.ts
 declare function pick<T extends object, K extends keyof T>(object: T, keys: readonly K[]): Pick<T, K>;
 //#endregion
-//#region src/services/PostgresService.d.ts
-declare function escapeIdentifier(identifier: string): string;
-declare function escapeIdentifierSmart(identifier: string, bypassKeywords?: boolean): string;
-declare function escapeLiteral(value: unknown): string;
-//#endregion
 //#region src/services/PromiseService.d.ts
 declare function sleep(ms: number): Promise<void>;
 declare function promiseAll<const T extends Record<string, Promise<unknown>>>(promises: T): Promise<{ [K in keyof T]: Awaited<T[K]>; }>;
@@ -75,4 +70,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, chunk, clamp, compact, escapeIdentifier, escapeIdentifierSmart, escapeLiteral, extractSlugId, firstOf, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
+export { type Arrayable, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };

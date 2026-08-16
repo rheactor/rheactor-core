@@ -1,22 +1,25 @@
 import { defineConfig } from "tsdown";
 
+// oxlint-disable-next-line import/no-anonymous-default-export
 export default defineConfig([
   {
     minify: true,
     entry: "./src/index.ts",
     platform: "browser",
-    logLevel: "error",
   },
   {
     minify: true,
     entry: "./src/index.next.ts",
     platform: "node",
-    logLevel: "error",
   },
   {
     minify: true,
     entry: "./src/index.node.ts",
     platform: "node",
-    logLevel: "error",
+  },
+  {
+    minify: true,
+    entry: "./src/index.postgres.ts",
+    platform: "node",
   },
 ]);

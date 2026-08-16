@@ -12,11 +12,12 @@ bun install github:@rheactor/rheactor-core
 
 ## Entry points
 
-| Entry point | Import path                    | Environment                       | Dependencies                  |
-| ----------- | ------------------------------ | --------------------------------- | ----------------------------- |
-| Base        | `@rheactor/rheactor-core`      | Universal (browser, server, edge) | None                          |
-| Node        | `@rheactor/rheactor-core/node` | Node.js only                      | Requires `node:fs` support    |
-| Next        | `@rheactor/rheactor-core/next` | Next.js (requires `next/image`)   | Requires `next/image` support |
+| Entry point | Import path                        | Environment                       | Dependencies                  |
+| ----------- | ---------------------------------- | --------------------------------- | ----------------------------- |
+| Base        | `@rheactor/rheactor-core`          | Universal (browser, server, edge) | None                          |
+| Node        | `@rheactor/rheactor-core/node`     | Node.js only                      | Requires `node:fs` support    |
+| Next        | `@rheactor/rheactor-core/next`     | Next.js (requires `next/image`)   | Requires `next/image` support |
+| Postgres    | `@rheactor/rheactor-core/postgres` | Universal (browser, server, edge) | None                          |
 
 # Base functions
 
@@ -314,55 +315,6 @@ pick({ id: 1, name: "Ada", passwordHash: "..." }, ["id", "name"]);
 // { id: 1, name: "Ada" }
 ```
 
-## Postgres functions
-
-Escaping values and identifiers for PostgreSQL queries.
-
-### escapeIdentifier
-
-```ts
-escapeIdentifier(identifier: string): string
-```
-
-Wraps a PostgreSQL identifier in double quotes, doubling any embedded quotes.
-
-Use when interpolating table or column names into dynamic SQL.
-
-```ts
-escapeIdentifier('my"column'); // '"my""column"'
-```
-
-### escapeIdentifierSmart
-
-```ts
-escapeIdentifierSmart(identifier: string, bypassKeywords = false): string
-```
-
-Quotes only when necessary: identifiers matching `/^[a-z_][a-z0-9_$]*$/` are returned as-is unless
-they are PostgreSQL keywords. `bypassKeywords = true` also skips the keyword check.
-
-Use to generate cleaner SQL where minimal quoting matters.
-
-```ts
-escapeIdentifierSmart("users"); // users
-escapeIdentifierSmart("select"); // "select"
-```
-
-### escapeLiteral
-
-```ts
-escapeLiteral(value: unknown): string
-```
-
-Escapes a value into a PostgreSQL string literal. Single quotes are escaped by doubling, values
-containing backslashes use the `E''` syntax, non-string values become `''`, and null bytes throw.
-
-Use when interpolating values into dynamic SQL.
-
-```ts
-escapeLiteral("O'Reilly"); // "'O''Reilly'"
-```
-
 ## Promise functions
 
 Awaiting promises and pausing execution.
@@ -634,4 +586,107 @@ emails, or headless components.
 const { srcSet, src } = getNextImageUrl("/photo.jpg", 640);
 
 // <img srcSet={srcSet} src={src} />
+```
+
+# Postgres functions
+
+Escaping and unescaping identifiers and values for PostgreSQL queries. Safe in any runtime.
+
+**Import from the postgres entry point:**
+
+```ts
+// Example:
+import {
+  escapeIdentifier,
+  escapeLiteral,
+  unescapeIdentifier,
+} from "@rheactor/rheactor-core/postgres";
+```
+
+## Postgres functions
+
+Escaping values and identifiers for PostgreSQL queries.
+
+### escapeIdentifier
+
+```ts
+escapeIdentifier(identifier: string): string
+```
+
+Wraps a PostgreSQL identifier in double quotes, doubling any embedded quotes.
+
+Use when interpolating table or column names into dynamic SQL.
+
+```ts
+escapeIdentifier('my"column'); // '"my""column"'
+```
+
+### escapeIdentifierSmart
+
+```ts
+escapeIdentifierSmart(identifier: string, bypassKeywords = false): string
+```
+
+Quotes only when necessary: identifiers matching `/^[a-z_][a-z0-9_$]*$/` are returned as-is unless
+they are PostgreSQL keywords. `bypassKeywords = true` also skips the keyword check.
+
+Use to generate cleaner SQL where minimal quoting matters.
+
+```ts
+escapeIdentifierSmart("users"); // users
+escapeIdentifierSmart("select"); // "select"
+```
+
+### escapeLiteral
+
+```ts
+escapeLiteral(value: unknown): string
+```
+
+Escapes a value into a PostgreSQL string literal. Single quotes are escaped by doubling, values
+containing backslashes use the `E''` syntax, non-string values become `''`, and null bytes throw.
+
+Use when interpolating values into dynamic SQL.
+
+```ts
+escapeLiteral("O'Reilly"); // "'O''Reilly'"
+```
+
+### rescapeIdentifier
+
+```ts
+rescapeIdentifier(identifier: string, bypassKeywords = false): string
+```
+
+Removes the double-quote escaping from `identifier` (via `unescapeIdentifier`) and re-escapes it
+with `escapeIdentifierSmart`, so already-escaped identifiers are normalized instead of
+double-escaped. `bypassKeywords` behaves as in `escapeIdentifierSmart`.
+
+Use to normalize identifiers coming from user input, SQL dumps, or configuration before
+interpolating them into dynamic SQL.
+
+```ts
+rescapeIdentifier('"users"'); // users
+rescapeIdentifier('"my""column"'); // "my""column"
+```
+
+### unescapeIdentifier
+
+```ts
+unescapeIdentifier(identifier: string): string
+```
+
+Inverse of `escapeIdentifier`: strips a surrounding pair of double quotes and collapses embedded
+`""` back to `"`. Strings without surrounding double quotes (e.g. literals like `'abc'`) are
+returned unchanged. Throws when the identifier starts with a double quote but does not end with one
+(unbalanced quotes).
+
+Use to recover the raw identifier from a quoted one, e.g. when parsing SQL output or building
+`rescapeIdentifier`.
+
+```ts
+unescapeIdentifier('"ab""cd"'); // 'ab"cd'
+unescapeIdentifier('"users"'); // users
+unescapeIdentifier("'abc'"); // "'abc'"
+unescapeIdentifier('"abc'); // throws
 ```

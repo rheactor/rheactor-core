@@ -23,8 +23,6 @@ export { clamp, formatNumber } from "#/services/NumberService";
 
 export { pick } from "#/services/ObjectService";
 
-export { escapeIdentifier, escapeIdentifierSmart, escapeLiteral } from "#/services/PostgresService";
-
 export { promiseAll, sleep } from "#/services/PromiseService";
 
 export { matchGroups } from "#/services/RegExpService";

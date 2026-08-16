@@ -2,11 +2,12 @@
 
 ## Project overview
 
-`@rheactor/rheactor-core` is a shared utility library with three entry points:
+`@rheactor/rheactor-core` is a shared utility library with four entry points:
 
 - `src/index.ts`: base functions, universal (browser, server, edge)
 - `src/index.node.ts`: Node.js functions
 - `src/index.next.ts`: Next.js functions
+- `src/index.postgres.ts`: PostgreSQL escaping functions, universal (browser, server, edge)
 
 Each entry point re-exports functions from files under `src/services/`.
 

@@ -18,6 +18,22 @@ export function escapeIdentifierSmart(identifier: string, bypassKeywords = false
   return escapeIdentifier(identifier);
 }
 
+export function unescapeIdentifier(identifier: string) {
+  if (identifier.startsWith('"')) {
+    if (!identifier.endsWith('"')) {
+      throw new Error("identifier starting with a double quote must end with a double quote");
+    }
+
+    return identifier.slice(1, -1).replaceAll('""', '"');
+  }
+
+  return identifier;
+}
+
+export function rescapeIdentifier(identifier: string, bypassKeywords = false) {
+  return escapeIdentifierSmart(unescapeIdentifier(identifier), bypassKeywords);
+}
+
 export function escapeLiteral(value: unknown) {
   if (typeof value !== "string") {
     return "''";

@@ -16,7 +16,8 @@
     "target": "ESNext",
     "types": ["node"],
     "paths": {
-      "#/*": ["./src/*.ts"]
+      "#/*": ["./src/*.ts"],
+      "#tests/*": ["./tests/*"]
     }
   },
 
