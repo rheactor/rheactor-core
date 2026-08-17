@@ -411,12 +411,10 @@ Typed wrappers around `fetch`.
 ```ts
 request<T>(options: RequestOptions): Promise<RequestResponse<T>>
 
-interface RequestOptions {
-  method?: "GET" | "POST";
+interface RequestOptions extends Omit<RequestInit, "body"> {
   url: string | URL;
   query?: string | Record<string, string> | string[][] | URLSearchParams;
   body?: object;
-  headers?: HeadersInit;
 }
 
 interface RequestResponse<T> {
@@ -426,7 +424,8 @@ interface RequestResponse<T> {
 }
 ```
 
-Sends a GET (default) or POST `fetch`, serializing `body` as JSON and appending `query` to the URL.
+Sends a GET (default) or POST `fetch`, serializing `body` as JSON, appending `query` to the URL,
+and passing every other `RequestInit` option (except `body`) straight through to `fetch`.
 Resolves to `{ success, status, data }`, where `success` is `response.ok` and `data` is the body
 parsed as JSON, or `undefined` when the body is empty or invalid JSON.
 

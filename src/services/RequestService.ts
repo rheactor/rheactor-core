@@ -4,12 +4,10 @@ type FetchUrl = Exclude<Parameters<typeof fetch>[0], Request>;
 
 type URLSearchParamsQuery = ConstructorParameters<typeof URLSearchParams>[0];
 
-export interface RequestOptions {
-  method?: "GET" | "POST";
+export interface RequestOptions extends Omit<RequestInit, "body"> {
   url: FetchUrl;
   query?: URLSearchParamsQuery;
   body?: object;
-  headers?: HeadersInit;
 }
 
 type ResponseProcessor<T> = (response: Response) => Promise<T | undefined>;
@@ -24,17 +22,17 @@ async function requestRaw<T>(
   options: RequestOptions,
   processor: ResponseProcessor<T>,
 ): Promise<RequestResponse<T>> {
-  const url = new URL(
-    options.url,
-    typeof location === "undefined" ? "https://example.com" : location.origin,
-  ).href;
-  const urlQuery =
-    options.query === undefined ? "" : `?${new URLSearchParams(options.query).toString()}`;
+  const { url, query, body, ...initOptions } = options;
 
-  const result = await fetch(url + urlQuery, {
+  const fetchLocation = typeof location === "undefined" ? "https://example.com" : location.origin;
+  const fetchUrl = new URL(url, fetchLocation).href;
+  const fetchQuery = query === undefined ? "" : `?${new URLSearchParams(query).toString()}`;
+
+  const result = await fetch(fetchUrl + fetchQuery, {
     method: options.method ?? "GET",
-    body: options.body === undefined ? undefined : JSON.stringify(options.body),
+    body: body === undefined ? undefined : JSON.stringify(body),
     headers: options.headers,
+    ...initOptions,
   });
 
   return {

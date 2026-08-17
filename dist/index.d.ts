@@ -44,12 +44,10 @@ declare function matchGroups<GroupName extends string>(expression: RegExp, value
 //#region src/services/RequestService.d.ts
 type FetchUrl = Exclude<Parameters<typeof fetch>[0], Request>;
 type URLSearchParamsQuery = ConstructorParameters<typeof URLSearchParams>[0];
-interface RequestOptions {
-  method?: "GET" | "POST";
+interface RequestOptions extends Omit<RequestInit, "body"> {
   url: FetchUrl;
   query?: URLSearchParamsQuery;
   body?: object;
-  headers?: HeadersInit;
 }
 interface RequestResponse<T> {
   success: boolean;

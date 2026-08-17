@@ -69,6 +69,29 @@ describe("services/RequestService", () => {
     expect(init.body).toBe(JSON.stringify({ item: 1 }));
   });
 
+  it("request passes through RequestInit options", async () => {
+    expect.assertions(3);
+
+    const mock = createMockFetch({
+      ok: true,
+      status: 200,
+      text: async () => Promise.resolve("{}"),
+    });
+
+    await request({
+      url: "https://example.com/api",
+      method: "POST",
+      credentials: "include",
+      cache: "no-store",
+    });
+
+    const [, init] = mock.mock.calls.at(0) as unknown as [string, RequestInit];
+
+    expect(init.method).toBe("POST");
+    expect(init.credentials).toBe("include");
+    expect(init.cache).toBe("no-store");
+  });
+
   it("request appends query string from query object", async () => {
     expect.assertions(2);
 
