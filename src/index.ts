@@ -4,6 +4,7 @@ export {
   chunk,
   compact,
   firstOf,
+  groupBy,
   pluck,
   range,
   shuffle,

@@ -21,6 +21,21 @@ export function firstOf<T, TDefault>(
   return array.at(0) ?? defaultValue;
 }
 
+export function groupBy<T, K extends PropertyKey>(
+  items: Iterable<T>,
+  keySelector: (item: T, index: number) => K,
+) {
+  const groups = new Map<K, T[]>();
+
+  let index = 0;
+
+  for (const item of items) {
+    groups.getOrInsert(keySelector(item, index++), []).push(item);
+  }
+
+  return Object.fromEntries(groups) as Partial<Record<K, T[]>>;
+}
+
 export function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]> {
   return array.map((item) => item[key]);
 }

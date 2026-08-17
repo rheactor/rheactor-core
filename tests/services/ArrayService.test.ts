@@ -4,12 +4,23 @@ import {
   chunk,
   compact,
   firstOf,
+  groupBy,
   pluck,
   range,
   shuffle,
   toArray,
   unique,
 } from "#/services/ArrayService";
+
+function* generate(): Generator<number> {
+  yield 1;
+  yield 3;
+  yield 5;
+}
+
+function evenOrOdd(item: number): "even" | "odd" {
+  return item % 2 === 0 ? "even" : "odd";
+}
 
 describe("services/ArrayService", () => {
   type RangeTest = [from: number, to: number, step: number | undefined, output: number[]];
@@ -134,6 +145,75 @@ describe("services/ArrayService", () => {
 
   it.each(pluckTests)("pluck(%j, %j) = %j", (input, key, output) => {
     expect(pluck(input, key)).toStrictEqual(output);
+  });
+
+  type GroupByTest = [
+    input: number[],
+    keySelector: (item: number) => number | string,
+    output: Record<string, number[]>,
+  ];
+
+  const groupByTests: GroupByTest[] = [
+    [
+      [1, 2, 3, 4, 5, 6],
+      (item) => (item % 2 === 0 ? "even" : "odd"),
+      { odd: [1, 3, 5], even: [2, 4, 6] },
+    ],
+    [[1, 2, 3, 4], (item) => item % 2, { 1: [1, 3], 0: [2, 4] }],
+    [[1, 2, 3, 4, 5], (item) => String(item % 3), { 1: [1, 4], 2: [2, 5], 0: [3] }],
+    [[], (item) => (item % 2 === 0 ? "even" : "odd"), {}],
+  ];
+
+  it.each(groupByTests)("groupBy(%j) = %j", (input, keySelector, output) => {
+    expect(groupBy(input, keySelector)).toStrictEqual(output);
+  });
+
+  it("groupBy preserves item order within groups, including non-adjacent items", () => {
+    const items = [
+      { role: "admin", name: "A" },
+      { role: "user", name: "B" },
+      { role: "admin", name: "C" },
+    ];
+
+    expect(groupBy(items, (item) => item.role)).toStrictEqual({
+      admin: [
+        { role: "admin", name: "A" },
+        { role: "admin", name: "C" },
+      ],
+      user: [{ role: "user", name: "B" }],
+    });
+  });
+
+  it('groupBy handles the "__proto__" key without corrupting the result', () => {
+    const result = groupBy(["a", "b"], () => "__proto__");
+
+    expect(result["__proto__"]).toStrictEqual(["a", "b"]);
+    expect(Object.hasOwn(result, "__proto__")).toBe(true);
+  });
+
+  it("groupBy accepts any Iterable, such as Set and generators", () => {
+    const set = new Set([1, 2, 3, 4]);
+
+    expect(groupBy(set, evenOrOdd)).toStrictEqual({ odd: [1, 3], even: [2, 4] });
+    expect(groupBy(generate(), evenOrOdd)).toStrictEqual({ odd: [1, 3, 5] });
+  });
+
+  it("groupBy passes the item index to the key selector", () => {
+    const seen: number[] = [];
+
+    groupBy(["a", "b", "c"], (item, index) => {
+      seen.push(index);
+      return item;
+    });
+
+    expect(seen).toStrictEqual([0, 1, 2]);
+  });
+
+  it("groupBy does not mutate the input iterable", () => {
+    const input = Object.freeze(["a", "b", "a"]);
+
+    expect(() => groupBy(input, (item) => item)).not.toThrow();
+    expect(input).toStrictEqual(["a", "b", "a"]);
   });
 
   it("unique removes duplicates keeping first occurrence order", () => {

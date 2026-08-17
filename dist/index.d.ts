@@ -4,6 +4,7 @@ declare function chunk<T>(array: T[], size: number): T[][];
 declare function compact<T>(array: Array<T | null | undefined>): T[];
 declare function firstOf<T>(array: T[]): T | undefined;
 declare function firstOf<T, TDefault>(array: T[], defaultValue: TDefault): T | TDefault;
+declare function groupBy<T, K extends PropertyKey>(items: Iterable<T>, keySelector: (item: T, index: number) => K): Partial<Record<K, T[]>>;
 declare function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]>;
 declare function range(start: number, end: number, step?: number): number[];
 declare function shuffle<T>(array: T[]): T[];
@@ -70,4 +71,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
+export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };

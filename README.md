@@ -84,6 +84,36 @@ firstOf([], 0); // 0
 firstOf([1, 2], 0); // 1
 ```
 
+### groupBy
+
+```ts
+groupBy<T, K extends PropertyKey>(
+  items: Iterable<T>,
+  keySelector: (item: T, index: number) => K,
+): Partial<Record<K, T[]>>
+```
+
+Groups the items of any iterable (arrays, `Set`, generators) into an object keyed by the value
+returned from `keySelector`, preserving item order within each group. The source iterable is never
+mutated, and even a `"__proto__"` key is stored safely as an own property.
+
+Use to bucket items by category, status, or any computed key, e.g. to build dashboards or group form
+results. The returned object has a normal prototype; use `Object.hasOwn` or key access to read
+groups.
+
+```ts
+groupBy(
+  [
+    { name: "Ada", role: "admin" },
+    { name: "Bob", role: "user" },
+    { name: "Cyd", role: "admin" },
+  ],
+  (item) => item.role,
+);
+// { admin: [{ name: "Ada", role: "admin" }, { name: "Cyd", role: "admin" }],
+//   user: [{ name: "Bob", role: "user" }] }
+```
+
 ### pluck
 
 ```ts
