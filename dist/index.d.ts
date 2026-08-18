@@ -24,7 +24,7 @@ declare function parseAs<T>(data: string | null | undefined, defaultValue: T): T
 //#endregion
 //#region src/services/LinkService.d.ts
 type Target = "_blank" | "_self" | "blank" | "self";
-declare function getTarget(src: string | undefined, target: Target | (string & {}) | undefined): "_blank" | "_self";
+declare function getTarget(src: string | undefined, target?: Target | (string & {})): "_blank" | "_self";
 //#endregion
 //#region src/services/NumberService.d.ts
 declare function clamp(value: number, min: number, max: number): number;

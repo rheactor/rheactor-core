@@ -1,6 +1,6 @@
 type Target = "_blank" | "_self" | "blank" | "self";
 
-export function getTarget(src: string | undefined, target: Target | (string & {}) | undefined) {
+export function getTarget(src: string | undefined, target?: Target | (string & {})) {
   if (target === "_blank" || target === "blank") {
     return "_blank";
   }
