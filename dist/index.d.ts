@@ -6,6 +6,7 @@ declare function firstOf<T>(array: T[]): T | undefined;
 declare function firstOf<T, TDefault>(array: T[], defaultValue: TDefault): T | TDefault;
 declare function groupBy<T, K extends PropertyKey>(items: Iterable<T>, keySelector: (item: T, index: number) => K): Partial<Record<K, T[]>>;
 declare function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]>;
+declare function pluck<T, K extends keyof T>(array: T[] | null | undefined, key: K): Array<T[K]> | undefined;
 declare function range(start: number, end: number, step?: number): number[];
 declare function shuffle<T>(array: T[]): T[];
 declare function toArray<T>(value: Arrayable<T>): T[];

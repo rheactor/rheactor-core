@@ -118,14 +118,18 @@ groupBy(
 
 ```ts
 pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]>
+pluck<T, K extends keyof T>(array: T[] | null | undefined, key: K): Array<T[K]> | undefined
 ```
 
-Extracts the same property from every item, preserving order.
+Extracts the same property from every item, preserving order. Returns `undefined` when the input
+array is `null` or `undefined`.
 
-Use to get a list of ids, names, etc. from an array of objects.
+Use to get a list of ids, names, etc. from an array of objects that may be absent (e.g. optional API
+data).
 
 ```ts
 pluck([{ id: 1, ignored: true }, { id: 2 }], "id"); // [1, 2]
+pluck(null, "id"); // undefined
 ```
 
 ### range

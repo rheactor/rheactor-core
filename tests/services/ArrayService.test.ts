@@ -119,9 +119,9 @@ describe("services/ArrayService", () => {
   });
 
   type PluckTest = [
-    input: Array<{ id: number; name: string }>,
+    input: Array<{ id: number; name: string }> | null | undefined,
     key: "id" | "name",
-    output: unknown[],
+    output: unknown[] | undefined,
   ];
 
   const pluckTests: PluckTest[] = [
@@ -141,6 +141,8 @@ describe("services/ArrayService", () => {
       "name",
       ["a", "b"],
     ],
+    [null, "id", undefined],
+    [undefined, "name", undefined],
   ];
 
   it.each(pluckTests)("pluck(%j, %j) = %j", (input, key, output) => {

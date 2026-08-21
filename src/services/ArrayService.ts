@@ -36,8 +36,18 @@ export function groupBy<T, K extends PropertyKey>(
   return Object.fromEntries(groups) as Partial<Record<K, T[]>>;
 }
 
-export function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]> {
-  return array.map((item) => item[key]);
+export function pluck<T, K extends keyof T>(array: T[], key: K): Array<T[K]>;
+
+export function pluck<T, K extends keyof T>(
+  array: T[] | null | undefined,
+  key: K,
+): Array<T[K]> | undefined;
+
+export function pluck<T, K extends keyof T>(
+  array: T[] | null | undefined,
+  key: K,
+): Array<T[K]> | undefined {
+  return array?.map((item) => item[key]);
 }
 
 export function range(start: number, end: number, step = 1) {
