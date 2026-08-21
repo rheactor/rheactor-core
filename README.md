@@ -368,6 +368,24 @@ const { user, posts } = await promiseAll({
 // user: User; posts: Post[]
 ```
 
+### promisePick
+
+```ts
+promisePick<T extends object, K extends keyof T>(promise: Promise<T>, key: K): Promise<T[K] | undefined>
+promisePick<T>(promise: Promise<unknown>, key: PropertyKey): Promise<T | undefined>
+```
+
+Awaits `promise` and resolves to the value stored at `key`, or `undefined` when the key is missing
+or the resolved value is not an object (`null` and primitives included). Arrays accept numeric
+indexes, and rejections propagate unchanged. Use the second overload to declare the expected value
+type explicitly when the resolved type is unknown.
+
+```ts
+await promisePick(Promise.resolve({ abc: 123 }), "abc"); // 123
+await promisePick(Promise.resolve(["a", "b"]), 1); // "b"
+await promisePick<number>(fetchCount(), "total"); // number | undefined
+```
+
 ### sleep
 
 ```ts
@@ -424,10 +442,10 @@ interface RequestResponse<T> {
 }
 ```
 
-Sends a GET (default) or POST `fetch`, serializing `body` as JSON, appending `query` to the URL,
-and passing every other `RequestInit` option (except `body`) straight through to `fetch`.
-Resolves to `{ success, status, data }`, where `success` is `response.ok` and `data` is the body
-parsed as JSON, or `undefined` when the body is empty or invalid JSON.
+Sends a GET (default) or POST `fetch`, serializing `body` as JSON, appending `query` to the URL, and
+passing every other `RequestInit` option (except `body`) straight through to `fetch`. Resolves to
+`{ success, status, data }`, where `success` is `response.ok` and `data` is the body parsed as JSON,
+or `undefined` when the body is empty or invalid JSON.
 
 Use as a small typed fetch wrapper when you don't need full control over the response.
 

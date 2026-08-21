@@ -35,6 +35,8 @@ declare function pick<T extends object, K extends keyof T>(object: T, keys: read
 //#endregion
 //#region src/services/PromiseService.d.ts
 declare function sleep(ms: number): Promise<void>;
+declare function promisePick<T extends object, K extends keyof T>(promise: Promise<T>, key: K): Promise<T[K] | undefined>;
+declare function promisePick<T>(promise: Promise<unknown>, key: PropertyKey): Promise<T | undefined>;
 declare function promiseAll<const T extends Record<string, Promise<unknown>>>(promises: T): Promise<{ [K in keyof T]: Awaited<T[K]>; }>;
 //#endregion
 //#region src/services/RegExpService.d.ts
@@ -69,4 +71,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
+export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, promisePick, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };

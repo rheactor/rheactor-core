@@ -24,7 +24,7 @@ export { clamp, formatNumber } from "#/services/NumberService";
 
 export { pick } from "#/services/ObjectService";
 
-export { promiseAll, sleep } from "#/services/PromiseService";
+export { promiseAll, promisePick, sleep } from "#/services/PromiseService";
 
 export { matchGroups } from "#/services/RegExpService";
 
