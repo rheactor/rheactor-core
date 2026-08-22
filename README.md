@@ -586,6 +586,27 @@ Node.js only.
 import { findPackagePath } from "@rheactor/rheactor-core/node";
 ```
 
+## File system functions
+
+Checking file and directory existence.
+
+### exists
+
+```ts
+exists(path: string): Promise<boolean>
+```
+
+Asynchronous counterpart of `fs.existsSync`: resolves to `true` when the file or directory at `path`
+exists, and to `false` when it does not or is not accessible (e.g. permission errors).
+
+Use in Node.js scripts and CLIs before reading or writing a path.
+
+```ts
+if (await exists(".env")) {
+  // ...
+}
+```
+
 ## Package functions
 
 Locating the project package root.

@@ -58,4 +58,7 @@ Run before finishing any change:
 
 - `bun run typecheck`
 - `bun run lint`
-- `bun test`
+- `bun run test`
+
+> Always use `bun run test` (the `package.json` script). Never use bare `bun test`: it bypasses
+> the project's vitest configuration.
