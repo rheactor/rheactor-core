@@ -217,6 +217,41 @@ getExtension("archive.tar.gz"); // "gz"
 
 Small utilities for working with functions.
 
+### attempt
+
+```ts
+attempt<T, Err = Error>(
+  action: () => Promise<T>,
+  onError?: (error: Err) => T | Promise<T>,
+  onFinally?: () => void,
+): Promise<T>
+attempt<T, Err = Error>(
+  action: () => T,
+  onError?: (error: Err) => T,
+  onFinally?: () => void,
+): T
+```
+
+Runs `action` mirroring native try/catch/finally: on success its value is returned, on failure the
+thrown value is passed to `onError` and its result is returned instead, and `onFinally` always runs
+afterwards.
+
+Use to keep fallible operations (JSON parsing, storage access, requests) inline without try/catch
+blocks. Without `onError` the original error is rethrown; errors thrown by `onError` propagate after
+`onFinally`; when `action` returns a promise, `onFinally` runs only after it settles. Narrow the
+caught value by annotating the `onError` parameter (`Err` defaults to `Error`).
+
+```ts
+const user = attempt(
+  () => JSON.parse(raw),
+  (error) => {
+    reportError(error);
+
+    return { name: "anonymous" };
+  },
+);
+```
+
 ### noop
 
 ```ts

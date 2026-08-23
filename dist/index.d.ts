@@ -17,6 +17,8 @@ declare function getExtension(path: string): string | undefined;
 //#endregion
 //#region src/services/FunctionService.d.ts
 declare function noop(): void;
+declare function attempt<T, Err = Error>(action: () => Promise<T>, onError?: (error: Err) => T | Promise<T>, onFinally?: () => void): Promise<T>;
+declare function attempt<T, Err = Error>(action: () => T, onError?: (error: Err) => T, onFinally?: () => void): T;
 declare function singleton<T>(factory: () => T): () => T;
 //#endregion
 //#region src/services/JsonService.d.ts
@@ -69,4 +71,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, promisePick, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, unique, unsafeCast };
+export { type Arrayable, type RequestOptions, type RequestResponse, attempt, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, promisePick, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, unique, unsafeCast };

@@ -14,7 +14,7 @@ export {
 
 export { getExtension } from "#/services/FileService";
 
-export { noop, singleton } from "#/services/FunctionService";
+export { attempt, noop, singleton } from "#/services/FunctionService";
 
 export { parseAs } from "#/services/JsonService";
 
