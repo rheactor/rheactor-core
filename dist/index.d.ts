@@ -60,9 +60,6 @@ interface RequestResponse<T> {
 declare function request<T>(options: RequestOptions): Promise<RequestResponse<T>>;
 declare function requestText(options: RequestOptions): Promise<RequestResponse<string>>;
 //#endregion
-//#region src/services/TailwindMergeService.d.ts
-declare const twMerge: (...classLists: import("tailwind-merge").ClassNameValue[]) => string;
-//#endregion
 //#region src/services/TypescriptService.d.ts
 declare function unsafeCast<T>(value: unknown): T;
 //#endregion
@@ -72,4 +69,4 @@ declare function slugify(word: string, separator?: string): string;
 declare function slugifyId(id: number, word: string): string;
 declare function extractSlugId(id: string): number | undefined;
 //#endregion
-export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, promisePick, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, twMerge, unique, unsafeCast };
+export { type Arrayable, type RequestOptions, type RequestResponse, chunk, clamp, compact, extractSlugId, firstOf, formatNumber, getExtension, getTarget, groupBy, matchGroups, noop, parseAs, pick, pluck, promiseAll, promisePick, range, removeDiacritics, request, requestText, shuffle, singleton, sleep, slugify, slugifyId, toArray, unique, unsafeCast };

@@ -25,4 +25,10 @@ export default defineConfig([
     entry: "./src/index.postgres.ts",
     platform: "node",
   },
+  {
+    minify: true,
+    entry: "./src/index.tailwind.ts",
+    platform: "browser",
+    deps: { neverBundle: ["tailwind-merge"] },
+  },
 ]);

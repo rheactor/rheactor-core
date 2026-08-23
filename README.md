@@ -18,6 +18,7 @@ bun install github:@rheactor/rheactor-core
 | Node        | `@rheactor/rheactor-core/node`     | Node.js only                      | Requires `node:fs` support    |
 | Next        | `@rheactor/rheactor-core/next`     | Next.js (requires `next/image`)   | Requires `next/image` support |
 | Postgres    | `@rheactor/rheactor-core/postgres` | Universal (browser, server, edge) | None                          |
+| Tailwind    | `@rheactor/rheactor-core/tailwind` | Universal (browser, server, edge) | Requires `tailwind-merge`     |
 
 # Base functions
 
@@ -475,25 +476,6 @@ Same as `request`, but `data` is the raw response text instead of parsed JSON.
 
 Use for endpoints that return plain text, HTML, or CSV.
 
-## Tailwind merge functions
-
-Merging Tailwind CSS class strings.
-
-### twMerge
-
-```ts
-twMerge(...classLists: ClassNameValue[]): string
-```
-
-Merges Tailwind CSS class strings, removing conflicts so the last conflicting class wins. Extended
-with Rheactor theme tokens (`container` class, `mobile` breakpoint, `theme` color).
-
-Use for `className={twMerge(...)}` with conditional classes.
-
-```ts
-twMerge("px-2 py-1", isActive && "py-3"); // "px-2 py-3" when isActive
-```
-
 ## TypeScript functions
 
 Type system utilities.
@@ -677,6 +659,36 @@ emails, or headless components.
 const { srcSet, src } = getNextImageUrl("/photo.jpg", 640);
 
 // <img srcSet={srcSet} src={src} />
+```
+
+# Tailwind functions
+
+Merging Tailwind CSS class strings.
+
+**Import from the tailwind entry point:**
+
+```ts
+// Example:
+import { twMerge } from "@rheactor/rheactor-core/tailwind";
+```
+
+## Tailwind merge functions
+
+Merging Tailwind CSS class strings.
+
+### twMerge
+
+```ts
+twMerge(...classLists: ClassNameValue[]): string
+```
+
+Merges Tailwind CSS class strings, removing conflicts so the last conflicting class wins. Extended
+with Rheactor theme tokens (`container` class, `mobile` breakpoint, `theme` color).
+
+Use for `className={twMerge(...)}` with conditional classes.
+
+```ts
+twMerge("px-2 py-1", isActive && "py-3"); // "px-2 py-3" when isActive
 ```
 
 # Postgres functions

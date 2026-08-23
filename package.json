@@ -32,6 +32,10 @@
     "./postgres": {
       "types": "./dist/index.postgres.d.mts",
       "default": "./dist/index.postgres.mjs"
+    },
+    "./tailwind": {
+      "types": "./dist/index.tailwind.d.ts",
+      "default": "./dist/index.tailwind.js"
     }
   },
   "scripts": {
@@ -47,8 +51,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "is-path-inside": "^4.0.0",
-    "tailwind-merge": "^3.6.0"
+    "is-path-inside": "^4.0.0"
   },
   "devDependencies": {
     "@rheactor/rheactor-oxc-config": "github:rheactor/rheactor-oxc-config",
@@ -57,15 +60,20 @@
     "oxfmt": "^0.64.0",
     "oxlint": "^1.79.0",
     "oxlint-tsgolint": "^7.0.2001",
+    "tailwind-merge": "^3.6.0",
     "tsdown": "^0.22.14",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   },
   "peerDependencies": {
-    "next": "^16.3.2"
+    "next": "^16.3.2",
+    "tailwind-merge": "^3.6.0"
   },
   "peerDependenciesMeta": {
     "next": {
+      "optional": true
+    },
+    "tailwind-merge": {
       "optional": true
     }
   }
