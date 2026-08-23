@@ -607,6 +607,25 @@ if (await exists(".env")) {
 }
 ```
 
+### existsInside
+
+```ts
+existsInside(child: string, parent: string): boolean
+```
+
+Checks whether `child` is located strictly inside the `parent` directory tree, based on lexical path
+comparison only (no filesystem access). Use it to validate user-provided or external paths before
+reading or writing them under a trusted base directory.
+
+Re-export of `is-path-inside`: equal paths return `false`, comparison is case-insensitive on
+Windows, and trailing separators are ignored.
+
+```ts
+existsInside("src/index.ts", "src"); // true
+existsInside("src", "src"); // false
+existsInside("../outside/file.txt", "src"); // false
+```
+
 ## Package functions
 
 Locating the project package root.
