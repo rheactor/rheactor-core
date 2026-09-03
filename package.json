@@ -55,16 +55,15 @@
   },
   "devDependencies": {
     "@rheactor/rheactor-oxc-config": "github:rheactor/rheactor-oxc-config",
-    "@rheactor/rheactor-oxc-plugin": "github:rheactor/rheactor-oxc-plugin",
     "@types/node": "^26.4.1",
     "next": "^16.3.4",
     "oxfmt": "^0.66.0",
     "oxlint": "^1.81.0",
     "oxlint-tsgolint": "^7.0.2001",
     "tailwind-merge": "^3.6.0",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.0"
   },
   "peerDependencies": {
     "next": "^16.3.4",
