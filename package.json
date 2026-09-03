@@ -55,10 +55,11 @@
   },
   "devDependencies": {
     "@rheactor/rheactor-oxc-config": "github:rheactor/rheactor-oxc-config",
-    "@types/node": "^26.2.0",
-    "next": "^16.3.2",
-    "oxfmt": "^0.64.0",
-    "oxlint": "^1.79.0",
+    "@rheactor/rheactor-oxc-plugin": "github:rheactor/rheactor-oxc-plugin",
+    "@types/node": "^26.4.1",
+    "next": "^16.3.4",
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.81.0",
     "oxlint-tsgolint": "^7.0.2001",
     "tailwind-merge": "^3.6.0",
     "tsdown": "^0.22.14",
@@ -66,7 +67,7 @@
     "vitest": "^4.1.11"
   },
   "peerDependencies": {
-    "next": "^16.3.2",
+    "next": "^16.3.4",
     "tailwind-merge": "^3.6.0"
   },
   "peerDependenciesMeta": {
